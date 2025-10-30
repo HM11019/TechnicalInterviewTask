@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Customer Page";
+}
+@using Kendo.Mvc.UI
+@using Newtonsoft.Json
+@model string
+
+<!-- jQuery primero -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Kendo UI -->
+<script src="https://kendo.cdn.telerik.com/2025.3.1002/js/kendo.all.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2025.3.1002/js/kendo.aspnetmvc.min.js"></script>
+
+<div class="container mt-3">
+    <h2>Customer orders information</h2>
+
+</div>
+
+<script type="text/javascript">
+    // serializar el Model en JSON para JavaScript
+    var customerId = @Html.Raw(JsonConvert.SerializeObject(Model ?? ""));
+
+    function ReturnCustomerID() {
+        try {
+            console.log("customerID (from server):", customerId);
+            return { customerID: customerId };
+        } catch (err) {
+            console.error("filterCustomer error:", err);
+            return { customerID: customerId || "HANAR" };
+        }
+    }
+
+    function onGridDataBound(e) {
+        console.log("grid data bound, items:", e.sender.dataSource.data());
+    }
+
+
+</script>
+
+<div class="custom-toolbar-Customers">
+    @(Html.Kendo().Grid<object>() // use object because we will bind fields by name
+        .Name("gridCustomerOrdersInformation")
+        .Columns(columns =>
+        {
+            columns.Select().Width(25).Exportable(false).Hidden(true);
+            columns.Bound("orderID").Title("Order ID").Width(220);
+            columns.Bound("customerID").Title("Customer ID").Width(220);
+            columns.Bound("orderDate").Title("Order Date").Width(180);
+            columns.Bound("shippedDate").Title("Shipped Date").Width(200);
+        })
+        .Pageable(pager => pager
+        .Input(false)
+        .Numeric(true)
+        .Info(true)
+        .PreviousNext(true)
+        .Refresh(false)
+        )
+        .ColumnMenu(col => col.Filterable(true))
+        .Sortable()
+        .Navigatable()
+        .Resizable(r => r.Columns(true))
+        .Reorderable(r => r.Columns(true))
+        .Selectable(selectable => selectable.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
+        .Scrollable(sc => sc.Endless(false))
+        .HtmlAttributes(new { style = "height:850px;font-size:14px;", @class = "text-normal-size custom-grid-height" })
+        .PersistSelection(true)
+        .Filterable()
+        .Events(e => e.DataBound("onGridDataBound"))
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(25)
+        .ServerOperation(true)
+        .Model(model => { model.Id("customerID"); })
+        .Read(read => read.Action("GetCustomerOrdersInformation", "Main").Data("ReturnCustomerID"))
+
+        )
+        )
+</div>
+
+<style>
+    .validate-required-fields {
+        border: 1px solid red !important;
+    }
+</style>

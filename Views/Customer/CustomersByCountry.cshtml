@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "Customer Page";
+}
+@using Kendo.Mvc.UI
+
+<!-- jQuery primero -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Kendo UI -->
+<script src="https://kendo.cdn.telerik.com/2025.3.1002/js/kendo.all.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2025.3.1002/js/kendo.aspnetmvc.min.js"></script>
+
+<div class="container mt-3">
+    <h2>Customer by country</h2>
+
+    <input id="countryFilter" type="text" placeholder="Customer search by country..." class="form-control mb-3" />
+    <button class="btn btn-success" id="btnSearchCustomer">
+        <i class="bi bi-plus-circle"></i> Search
+    </button>
+</div>
+
+<script type="text/javascript">
+    function filterCustomer() {
+        // var country = "UK";
+        // // var country = $("#countryFilter").val();
+        // return { country: country };
+
+        try {
+            // obtiene el valor del input y lo trimmea
+            var inputVal = ($("#countryFilter").val() || "").trim();
+
+            // si está vacío usa "UK", si no usa el valor ingresado
+            var country = inputVal === "" ? "UK" : inputVal;
+
+            console.log("filterCustomer -> country value:", country);
+            return { country: country };
+        } catch (err) {
+            console.error("filterCustomer error:", err);
+            return { country: "UK" };
+        }
+    }
+
+    function onGridDataBound(e) {
+        console.log("grid data bound, items:", e.sender.dataSource.data());
+    }
+
+        // Debounce: evita ejecuciones frecuentes mientras el usuario escribe
+    function debounce(fn, delay) {
+        var timer = null;
+        return function () {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                fn.apply(context, args);
+            }, delay);
+        };
+    }
+
+    $(document).ready(function () {
+        // Click handler para el botón renombrado
+        $("#btnSearchCustomer").on("click", function () {
+            var grid = $("#gridCustomer").data("kendoGrid");
+            if (grid) {
+                grid.dataSource.page(1);
+                grid.dataSource.read();
+            } else {
+                console.warn("gridCustomer no inicializada todavía.");
+            }
+        });
+
+        // Enter en el input ejecuta búsqueda
+        $("#countryFilter").on("keypress", function (e) {
+            if (e.which === 13) {
+                $("#btnSearchCustomer").click();
+            }
+        });
+
+        // Al escribir dispara la búsqueda con debounce (400ms)
+        $("#countryFilter").on("input", debounce(function () {
+            $("#btnSearchCustomer").click();
+        }, 400));
+    });
+
+</script>
+
+<div class="custom-toolbar-Customers">
+    @(Html.Kendo().Grid<object>() // use object because we will bind fields by name
+        .Name("gridCustomer")
+        .Columns(columns =>
+        {
+            columns.Select().Width(25).Exportable(false).Hidden(true);
+            @* columns.Bound("customerID").Title("CustomerID").ClientTemplate("<span>&nbsp;&nbsp;<a href='" + Url.Action("ExtendedView", "Main", new { ContactId = "#=customerID#" }) + "' class='primarylink'><i class='bi bi-arrow-up-right-square' style='font-size: medium;' /></i></a></span>").Width(220); *@
+            columns.Bound("customerID").Title("CustomerID")
+            .ClientTemplate("<a href='" + Url.Action("CustomerOrdersInformation", "Main") + "?customerID=#=customerID#' class='primarylink'><i class='bi bi-arrow-up-right-square' style='font-size: medium;'></i> #=customerID#</a>")
+            .Width(220);
+            columns.Bound("companyName").Title("CompanyName").Width(220);
+            columns.Bound("contactName").Title("Customer Name").Width(220);
+            columns.Bound("phone").Title("Phone").Width(180);
+            columns.Bound("fax").Title("Fax").Width(200);
+        })
+        .Pageable(pager => pager
+            .Input(false)
+            .Numeric(true)
+            .Info(true)
+            .PreviousNext(true)
+            .Refresh(false)
+        )
+        .ColumnMenu(col => col.Filterable(true))
+        .Sortable()
+        .Navigatable()
+        .Resizable(r => r.Columns(true))
+        .Reorderable(r => r.Columns(true))
+        .Selectable(selectable => selectable.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
+        .Scrollable(sc => sc.Endless(false))
+        .HtmlAttributes(new { style = "height:850px;font-size:14px;", @class = "text-normal-size custom-grid-height" })
+        .PersistSelection(true)
+        .Filterable()
+        .Events(e => e.DataBound("onGridDataBound"))
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(25)
+            .ServerOperation(true)
+            .Model(model => { model.Id("customerID"); })
+            .Read(read => read.Action("GetCustomersByCountry", "Main").Data("filterCustomer"))
+
+        )
+    )
+</div>
+
+<style>
+    .validate-required-fields { border: 1px solid red !important; }
+
+    .custom-toolbar-Customers a.primarylink {
+        color: #0d6efd;               /* azul similar a Bootstrap primary */
+        text-decoration: underline;   /* subrayado */
+    }
+
+    .custom-toolbar-Customers a.primarylink:hover {
+        color: #0b5ed7;               /* azul más oscuro al hover */
+        text-decoration: underline;
+    }
+</style>
