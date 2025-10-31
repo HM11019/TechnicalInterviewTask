@@ -20,12 +20,19 @@ Views (Razor) — display data using HTML and Kendo UI components.
 ⚙️ Features
 
 ✅ ASP.NET Core 8.0 — built with the latest .NET version
+
 ✅ MVC Architecture — clean separation of concerns
+
 ✅ WCF Integration — consumes remote data via configurable service URLs
+
 ✅ Dependency Injection — modular, testable, and extensible service design
+
 ✅ Telerik Kendo UI — advanced data grid with paging, sorting, filtering, and exporting
+
 ✅ JSON Serialization/Deserialization — robust communication with WCF services
+
 ✅ Bootstrap UI — responsive design and layout
+
 
 🔗 WCF Service Integration
 
