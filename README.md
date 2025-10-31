@@ -94,7 +94,7 @@ Front-End	Razor, Bootstrap 5, jQuery
 Service Layer	WCF Web Services (JSON-based)
 Data Handling	Newtonsoft.Json
 Dependency Injection	Built-in .NET Core DI Container
-IDE	Visual Studio 2022 / 2019
+IDE	Visual Studio 2022 (Telerik 2025 only works in this version of VS)
 
 
 ⚙️ Configuration
