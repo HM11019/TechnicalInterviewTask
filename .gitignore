@@ -1,0 +1,146 @@
+﻿##############################################
+# 🔧 Global .gitignore for WCF + ASP.NET Core 8
+# Author: Erick Hernández
+# Last Updated: 2025-10-29
+##############################################
+
+###############################
+# 🧩 Visual Studio
+###############################
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+###############################
+# ⚙️ Build outputs
+###############################
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+[Tt]emp/
+[Tt]mp/
+[Bb]ackup/
+Release/
+Debug/
+publish/
+x64/
+x86/
+
+###############################
+# 📦 NuGet Packages
+###############################
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+*.nuspec
+.nuget/
+PackageRestoreConsent.xml
+
+###############################
+# 🗄️ Entity Framework Generated Files
+###############################
+*.edmx.diagram
+*.edmx.sql
+*.dbmdl
+Migrations/
+*.mdf
+*.ldf
+App_Data/*.mdf
+App_Data/*.ldf
+
+###############################
+# 🧰 Telerik / Kendo UI
+###############################
+# Telerik NuGet packages and trial licensing cache
+Telerik.UI.for.AspNet.Core.*
+Telerik.Licensing.*
+Telerik.UI.for.*
+telerik-license.txt
+*.telerik.*
+
+# Kendo UI CDN Key or License evidence files
+KendoLicensing.*
+LicenseConfig.json
+
+###############################
+# 🌐 ASP.NET Core
+###############################
+wwwroot/lib/
+node_modules/
+dist/
+.bundle/
+.env
+.env.*
+npm-debug.log
+yarn-error.log
+*.log
+libman.json
+
+# Configuration for local only
+appsettings.Development.json
+appsettings.Local.json
+launchSettings.json
+
+###############################
+# 🧾 Logs / Temp
+###############################
+*.log
+*.tlog
+*.tmp
+*.temp
+*.bak
+*.cache
+*.old
+*.orig
+*.swp
+
+###############################
+# 🪟 OS-specific junk
+###############################
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.nfs*
+
+###############################
+# 🧩 JetBrains / Rider / Resharper
+###############################
+.idea/
+_ReSharper*/
+*.DotSettings.user
+
+###############################
+# 🧠 Miscellaneous
+###############################
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+*.TestResults/
+*.trx
+
+###############################
+# 📄 Documentation and Config
+###############################
+# Keep these files (do not ignore)
+!.gitignore
+!README.md
+!LICENSE
+!Web.config
+!appsettings.json
+!.editorconfig
