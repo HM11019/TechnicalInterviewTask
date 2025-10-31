@@ -3,6 +3,7 @@
 This project is an ASP.NET Core 8.0 MVC web application built using Razor views, acting as a client UI for consuming external WCF services.
 It follows the Model–View–Controller (MVC) pattern to retrieve, process, and display data through rich and responsive UI components powered by Telerik Kendo UI.
 
+
 🚀 Overview
 
 The main purpose of this application is to demonstrate how an ASP.NET Core MVC front-end can consume data from WCF web services and display it dynamically using customizable Telerik Kendo Grids.
@@ -16,6 +17,7 @@ Services — handle API/WCF communication logic.
 Models — represent structured data entities.
 
 Views (Razor) — display data using HTML and Kendo UI components.
+
 
 ⚙️ Features
 
@@ -45,6 +47,7 @@ The client app connects to WCF services defined in the appsettings.json file:
 
 
 These services are consumed through the MainService and HttpService layers using asynchronous HTTP requests.
+
 
 🖥️ UI Components (Telerik Kendo UI)
 
@@ -81,6 +84,7 @@ Example:
     )
 )
 
+
 🧩 Technologies Used
 
 Category	Technology
@@ -91,6 +95,7 @@ Service Layer	WCF Web Services (JSON-based)
 Data Handling	Newtonsoft.Json
 Dependency Injection	Built-in .NET Core DI Container
 IDE	Visual Studio 2022 / 2019
+
 
 ⚙️ Configuration
 
@@ -113,6 +118,7 @@ Run the project:
 
 dotnet run
 
+
 🧠 Example Workflow
 
 User enters a country name in the filter textbox.
@@ -123,6 +129,7 @@ JSON data is deserialized into a list of Customer objects.
 
 The Telerik Kendo Grid displays the data dynamically on the Razor view.
 
+
 🧩 Future Improvements
 
 Implement authentication for WCF service calls
@@ -132,6 +139,7 @@ Add client-side search and filters in the Kendo Grid
 Create additional pages for Orders and Products
 
 Dockerize both client and WCF service for local testing
+
 
 📜 License
 This project is distributed for educational and evaluation purposes.
