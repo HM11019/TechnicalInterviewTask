@@ -17,33 +17,6 @@ Models — represent structured data entities.
 
 Views (Razor) — display data using HTML and Kendo UI components.
 
-🧱 Project Architecture
-WebApplicationNewJob/
-│
-├── Controllers/
-│   └── MainController.cs          # MVC controller handling views and data calls
-│
-├── Models/
-│   └── Customer.cs                # Data model mapped to WCF JSON response
-│
-├── Services/
-│   ├── Http/                      # Low-level HTTP service layer
-│   │   ├── HttpService.cs
-│   │   └── IHttpService.cs
-│   └── Main/                      # Business service layer
-│       ├── MainService.cs
-│       └── IMainService.cs
-│
-├── Views/
-│   ├── Customer/
-│   │   └── CustomersByCountry.cshtml   # View using Kendo Grid
-│   └── Shared/
-│       └── _Layout.cshtml
-│
-├── appsettings.json              # Configuration file (includes WCF endpoints)
-├── Program.cs / Startup.cs       # ASP.NET Core configuration and dependency injection
-└── README.md                     # Project documentation
-
 ⚙️ Features
 
 ✅ ASP.NET Core 8.0 — built with the latest .NET version
@@ -102,6 +75,7 @@ Example:
 )
 
 🧩 Technologies Used
+
 Category	Technology
 Framework	ASP.NET Core 8.0
 UI Library	Telerik Kendo UI for ASP.NET Core (Trial 2025.3.1002)
@@ -110,6 +84,7 @@ Service Layer	WCF Web Services (JSON-based)
 Data Handling	Newtonsoft.Json
 Dependency Injection	Built-in .NET Core DI Container
 IDE	Visual Studio 2022 / 2019
+
 ⚙️ Configuration
 
 Open appsettings.json and set your WCF endpoints:
@@ -141,12 +116,6 @@ JSON data is deserialized into a list of Customer objects.
 
 The Telerik Kendo Grid displays the data dynamically on the Razor view.
 
-📸 Screenshot (Optional)
-
-(You can include this section once you have a screenshot of your grid working)
-
-![Customer Grid Example](docs/customers-grid.png)
-
 🧩 Future Improvements
 
 Implement authentication for WCF service calls
@@ -158,6 +127,5 @@ Create additional pages for Orders and Products
 Dockerize both client and WCF service for local testing
 
 📜 License
-
 This project is distributed for educational and evaluation purposes.
 Telerik UI components used under a Trial License.
